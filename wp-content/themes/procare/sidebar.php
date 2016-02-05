@@ -70,5 +70,3 @@ Thanks for fixing that one gutter so quickly-really appreciate it! You have a ni
 </div>
 
 </div>
-
-

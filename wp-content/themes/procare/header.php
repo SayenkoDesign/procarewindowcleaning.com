@@ -76,7 +76,7 @@
 </li>
 
     <li>|</li>
-	<li><a href="<?php echo get_option('home'); ?>/kirkland-location">Location</a></li> 
+	<li><a href="<?php echo get_option('home'); ?>/kirkland-location">Location</a></li>
 
     <li>|</li>
 	<li><a href="<?php echo get_option('home'); ?>/faq">FAQ</a></li>
@@ -99,7 +99,7 @@
 <div id="splash-home">
 <?php if(is_home()) { ?>
 
- 
+
 
 
 <?php echo slider_pro(1, array('width'=>982, 'height'=>281, 'effect_type'=>'minimalLight')); ?>
@@ -140,7 +140,7 @@
 
 	<? }elseif(is_page('kirkland-location')) { ?>
 <div id="splash">
-</div>  
+</div>
 
 <? }elseif(is_page('faq')) { ?>
 <div id="splash">
@@ -162,7 +162,7 @@
 </div>
 	<? }elseif(is_page('free-estimate')) { ?>
 <div id="splash">
-   
+
    <img src="<?php bloginfo('home'); ?>/wp-content/themes/procare/images/estimatesplash.jpg" title="<?php bloginfo('name'); ?> Free Estimate" />
 </div>
 

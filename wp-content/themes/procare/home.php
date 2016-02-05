@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<?php get_sidebar(); ?>
+<?php get_sidebar('Special'); ?>
 
 <div class="post">
 
@@ -25,5 +25,7 @@ query_posts('page_id=5');
 
 
 </div>
+
+<?php get_sidebar('Newsletter'); ?>
 
 <?php get_footer(); ?>

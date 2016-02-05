@@ -7,7 +7,7 @@ Template Name: Blog Page
 <?php get_header(); ?>
 
 
-<?php get_sidebar(); ?>
+<?php get_sidebar('Special'); ?>
 
 <div class="post">
 
@@ -33,5 +33,7 @@ query_posts('category_name=blog');
 
 
 </div>
+
+<?php get_sidebar('Newsletter'); ?>
 
 <?php get_footer(); ?>
