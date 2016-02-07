@@ -1,4 +1,8 @@
 <?php
+add_action( 'after_setup_theme', function () {
+	register_nav_menu( 'primary', __( 'Primary Menu' ) );
+});
+
 
 if ( !current_user_can( 'edit_users' ) ) {
   add_action( 'init', create_function( '$a', "remove_action( 'init', 'wp_version_check' );" ), 2 );

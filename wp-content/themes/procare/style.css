@@ -337,6 +337,15 @@ small.attr {
 	display: table;
 	clear: both;
 }
+
+#mobile-nav {
+	display: none;
+}
+#sl-iframe {
+	width: 100% !important;
+	max-width:318px;
+	height: 400px !important;
+}
 @media all and (max-width: 600px) {
 	#wrapper, #header, #splash-home, #spacer, #navbar, #content, #footer, #footer .top, #footer .bottom {
 		width: 100%;
@@ -376,15 +385,84 @@ small.attr {
 		border-bottom: 2px #97b7ca dashed;
 	}
 	.textwidget > div {
-		width: 100% !important;
+		margin: 0 auto;
 	}
 	#footer {
 		background-color: #131E3A;
 		padding: 8px;
 	}
-}
-#sl-iframe {
-	width: 100% !important;
-	max-width:318px;
-	height: 400px !important;
+
+	#mobile-estimate {
+		background-color: #5AA4F0;
+		text-align: center;
+	}
+	#mobile-estimate a {
+		color: #FFF;
+		text-decoration: none;
+		padding: 8px;
+		display: block;
+	}
+	#mobile-logo-bar {
+		display: table;
+		width: 100%;
+		border-bottom: 2px dashed #141E3A;
+		padding: 6px 8px;
+	}
+	#mobile-logo-bar #mobile-phone,
+	#mobile-logo-bar #mobile-menu-icon,
+	#mobile-logo-bar #mobile-logo{
+		display: table-cell;
+	}
+	#mobile-logo-bar #mobile-logo {
+		text-align: center;
+	}
+	#mobile-logo-bar #mobile-menu-icon {
+		text-align: right;
+	}
+	#mobile-logo-bar #mobile-logo img {
+		position: relative;
+		top: 6px;
+		left: 8px;
+	}
+	#mobile-logo-bar a .fa {
+		color: #141E3A;
+		font-size: 48px;
+		display: inline-block;
+		padding: 8px;
+		position: relative;
+		top: -10px;
+	}
+	#mobile-logo-bar a .fa.fa-bars {
+		padding-right: 24px;
+	}
+
+	#mobile-nav {
+		display: block;
+		background-color: #FFF;
+	}
+	#menu-primary-menu {
+		background-color: #F1F1F1;
+		border-bottom: 1px solid #4A494A;
+		padding: 8px;
+		display: none;
+	}
+	#menu-primary-menu a {
+		color: #4A494A;
+		text-decoration: none;
+		padding: 8px;
+		display: block;
+ 	}
+	#menu-primary-menu .menu-item-has-children > a::after {
+		content: "\f105";
+		font-family:'FontAwesome';
+		padding-left: 8px;
+	}
+	#menu-primary-menu .menu-item-has-children.is_toggled > a::after {
+		content: "\f107";
+	}
+	#menu-primary-menu .sub-menu {
+		margin-left: 16px;
+		list-style-type: none;
+		display: none;
+	}
 }

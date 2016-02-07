@@ -20,7 +20,21 @@
 <?php do_action('wp_footer'); ?>
 </div>
 
+<script>
+    jQuery('#menu-primary-menu .menu-item-has-children > a').click(function(e){
+        console.log("clicked");
+        e.preventDefault();
+        jQuery(this).parent('li').toggleClass("is_toggled");
+        jQuery(this).next('ul').slideToggle();
+        return false;
+    });
 
+    jQuery('#mobile-logo-bar a .fa.fa-bars').click(function(e){
+        e.preventDefault();
+        jQuery('#menu-primary-menu').slideToggle();
+        return false;
+    })
+</script>
 
 </body>
 </html>
