@@ -89,6 +89,17 @@
             <input type="image" src="<?php echo get_option('home'); ?>/wp-content/themes/procare/images/search.jpg" alt="search" />
         </form>
     </div>
+    <?php
+    wp_nav_menu(array(
+        'depth' => 2,
+        'theme_location' => 'primary',
+        'link_before' => '<span>',
+        'link_after' => '</span>',
+        'before' => '',
+        'after' => ''
+    ));
+    ?>
+    <!--
     <ul>
         <li><a href="<?php echo get_option('home'); ?>">Home</a></li>
         <li>|</li>
@@ -110,6 +121,7 @@
         <li>|</li>
         <li><a href="<?php echo get_option('home'); ?>/free-estimate">Free Estimate</a></li>
     </ul>
+    -->
 </div>
 
 <div id="splash-home">

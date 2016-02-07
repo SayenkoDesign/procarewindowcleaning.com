@@ -346,6 +346,40 @@ small.attr {
 	max-width:318px;
 	height: 400px !important;
 }
+#menu-primary-menu-1 > li {
+	padding: 0 12px;
+	border-right: 2px solid #FFF;
+	margin: 0;
+	display: inline-block;;
+	float: left;
+	position: relative;
+}
+#menu-primary-menu-1 > li:last-of-type {
+	border-right: none;
+}
+#menu-primary-menu-1 > li > a {
+	position:relative;
+	bottom: 2px;
+}
+#menu-primary-menu-1 > li > ul {
+	display: none;
+	position: absolute;
+	left: 0;
+	padding: 10px 0;
+	background-color:  #68111A;
+	z-index: 100;
+	white-space: nowrap;
+}
+#menu-primary-menu-1 > li:hover > ul {
+	display: block;
+}
+#menu-primary-menu-1 > li > ul > li {
+	padding: 0 12px;
+	margin: 0;
+}
+#menu-primary-menu-1 > li > ul > li > a {
+	font-weight: normal;
+}
 @media all and (max-width: 998px) {
 	#wrapper, #header, #splash-home, #spacer, #navbar, #content, #footer, #footer .top, #footer .bottom {
 		width: 100%;
