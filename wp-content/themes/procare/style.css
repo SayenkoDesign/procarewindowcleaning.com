@@ -346,50 +346,24 @@ small.attr {
 	max-width:318px;
 	height: 400px !important;
 }
-@media all and (max-width: 600px) {
+@media all and (max-width: 998px) {
 	#wrapper, #header, #splash-home, #spacer, #navbar, #content, #footer, #footer .top, #footer .bottom {
 		width: 100%;
 	}
-	.slide-wrapper, #leftcolumn, #header, #navbar, #footer .top, #footer .bottom,
-	.post > div:last-of-type /* last socialable */ {
+	#navbar, #header, #leftcolumn {
 		display: none;
 	}
-	#content {
-		background-image: none;
-		box-sizing: border-box;
-		padding: 0;
-	}
 	.post {
-		float: none;
-		clear: both;
-		width: 100%;
-		margin: 0;
-		box-sizing: border-box;
-		padding: 16px;
-	}
-	.post img {
-		width: 100%;
+		width: calc(100% - 320px);
 	}
 	#rightcolumn {
-		float: none;
-		clear: both;
-		width: 100%;
-		margin: 0;
-		box-sizing: border-box;
-		padding:  8px;
 		background-color: #2A3553;
 	}
-	#rightcolumn .border {
-		padding: 5px 32px 30px 32px;
-		background-image: none;
-		border-bottom: 2px #97b7ca dashed;
+	#splash-home {
+		overflow: hidden;
 	}
-	.textwidget > div {
-		margin: 0 auto;
-	}
-	#footer {
-		background-color: #131E3A;
-		padding: 8px;
+	#splash-home .caption, #splash-home .background {
+		display: none;
 	}
 
 	#mobile-estimate {
@@ -451,7 +425,7 @@ small.attr {
 		text-decoration: none;
 		padding: 8px;
 		display: block;
- 	}
+	}
 	#menu-primary-menu .menu-item-has-children > a::after {
 		content: "\f105";
 		font-family:'FontAwesome';
@@ -464,5 +438,51 @@ small.attr {
 		margin-left: 16px;
 		list-style-type: none;
 		display: none;
+	}
+}
+@media all and (max-width: 600px) {
+	#wrapper, #header, #splash-home, #spacer, #navbar, #content, #footer, #footer .top, #footer .bottom {
+		width: 100%;
+	}
+	.slide-wrapper, #leftcolumn, #header, #navbar, #footer .top, #footer .bottom,
+	.post > div:last-of-type /* last socialable */ {
+		display: none;
+	}
+	#content {
+		background-image: none;
+		box-sizing: border-box;
+		padding: 0;
+	}
+	.post {
+		float: none;
+		clear: both;
+		width: 100%;
+		margin: 0;
+		box-sizing: border-box;
+		padding: 16px;
+	}
+	.post img {
+		width: 100%;
+	}
+	#rightcolumn {
+		float: none;
+		clear: both;
+		width: 100%;
+		margin: 0;
+		box-sizing: border-box;
+		padding:  8px;
+		background-color: #2A3553;
+	}
+	#rightcolumn .border {
+		padding: 5px 32px 30px 32px;
+		background-image: none;
+		border-bottom: 2px #97b7ca dashed;
+	}
+	.textwidget > div {
+		margin: 0 auto;
+	}
+	#footer {
+		background-color: #131E3A;
+		padding: 8px;
 	}
 }
