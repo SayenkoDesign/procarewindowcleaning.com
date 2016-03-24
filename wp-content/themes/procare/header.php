@@ -1,11 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1">
+
 <meta http-equiv="content-type" content="text/html; charset=<?php bloginfo('charset'); ?>" />
-
 <meta name="keywords" content="window, roof, gutter, cleaning, seattle, bellevue, kirkland, redmond, procare, pro care, window cleaning, roof cleaning, gutter cleaning" />
-
-
 <meta name="google-site-verification" content="dxQEM2ZbxDgCFkwG2AkkEEIsiJwB4zcaYwStRtmQRUY" />
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
@@ -48,17 +47,20 @@
         <a href="<?php echo site_url('/free-estimate'); ?>">Free Estimate <i class="fa fa-angle-right"></i></a>
     </div>
     <div id="mobile-logo-bar">
-        <div id="mobile-phone">
-            <a href="tel:+12062275837"><i class="fa fa-phone"></i></a>
+        <div>
+            <div id="mobile-phone">
+                <a href="tel:+12062275837"><i class="fa fa-phone"></i></a>
+            </div>
+            <div id="mobile-logo">
+                <a href="<?php echo site_url(); ?>">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/mobile-Logo.jpg" alt="<?php echo( get_bloginfo( 'title' ) ); ?>" />
+                </a>
+            </div>
+            <div id="mobile-menu-icon">
+                <a href="#"><i class="fa fa-bars"></i></a>
+            </div>
         </div>
-        <div id="mobile-logo">
-            <a href="<?php echo site_url(); ?>">
-                <img src="<?php echo( get_header_image() ?: 'http://placehold.it/72x72' ); ?>" alt="<?php echo( get_bloginfo( 'title' ) ); ?>" />
-            </a>
-        </div>
-        <div id="mobile-menu-icon">
-            <a href="#"><i class="fa fa-bars"></i></a>
-        </div>
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/dotted-mobile-line.jpg" alt="<?php echo( get_bloginfo( 'title' ) ); ?>" />
     </div>
     <?php
         wp_nav_menu(array(

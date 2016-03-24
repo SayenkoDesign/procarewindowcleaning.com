@@ -411,10 +411,16 @@ small.attr {
 		display: block;
 	}
 	#mobile-logo-bar {
+		padding: 6px 0;
+	}
+	#mobile-logo-bar > div {
 		display: table;
 		width: 100%;
-		border-bottom: 2px dashed #141E3A;
-		padding: 6px 8px;
+	}
+	#mobile-logo-bar > img {
+		display: block;
+		clear: both;
+		width: 100%;
 	}
 	#mobile-logo-bar #mobile-phone,
 	#mobile-logo-bar #mobile-menu-icon,
