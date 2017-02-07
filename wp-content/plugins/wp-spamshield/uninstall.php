@@ -1,12 +1,15 @@
 <?php
-/*
-WP-SpamShield - uninstall.php
-Version: 1.9.6.1
+/**
+ * WP-SpamShield - uninstall.php
+ * Version: 1.9.7.8
+ *
+ * This script uninstalls WP-SpamShield and removes all options and traces of its existence.
+ */
 
-This script uninstalls WP-SpamShield and removes all options and traces of its existence.
-*/
-
-if( !defined( 'ABSPATH' ) || !defined( 'WP_UNINSTALL_PLUGIN' ) ) { die(); }
+if( !defined( 'ABSPATH' ) || !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	if( !headers_sent() ) { header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden'); }
+	die( 'ERROR: This plugin requires WordPress and will not function if called directly.' );
+}
 
 if( !defined( 'WPSS_DEBUG' ) )	 				{ define( 'WPSS_DEBUG', FALSE ); }
 if( !defined( 'WPSS_CONTENT_DIR_PATH' ) ) 		{ define( 'WPSS_CONTENT_DIR_PATH', WP_CONTENT_DIR ); }
@@ -15,7 +18,10 @@ if( !defined( 'WPSS_PLUGIN_PATH' ) ) 			{ define( 'WPSS_PLUGIN_PATH', untrailing
 function rs_wpss_uninstall_plugin() {
 	/* Delete Options */
 	$del_options = array( 'wp_spamshield_version', 'spamshield_options', 'spamshield_widget_settings', 'spamshield_last_admin', 'spamshield_admins', 'spamshield_admin_notices', 'spamshield_count', 'spamshield_reg_count', 'spamshield_procdat', 'spamshield_install_status', 'spamshield_warning_status', 'spamshield_regalert_status', 'spamshield_nonces', 'spamshield_wpssmid_cache', 'spamshield_ubl_cache', 'spamshield_ubl_cache_disable', 'spamshield_ip_ban_disable', 'spamshield_ip_ban', 'spamshield_whitelist_keys', 'ak_count_pre', 'spamshield_init_user_approve_run' );
-	foreach( $del_options as $i => $option ) { delete_option( $option ); }
+	foreach( $del_options as $i => $option ) { delete_option( $option ); } /* TO DO: When Network Activation enabled, add Multisite - delete_site_option() */
+	/* Delete Transients */
+	$del_trans = array( 'wpss_iswpv_check', );
+	foreach( $del_trans as $i => $transient ) { delete_transient( $transient ); delete_site_transient( $transient ); }
 	/* Unregister Widgets */
 	$unreg_widgets = array( 'WP_SpamShield_Counter_LG', 'WP_SpamShield_Counter_CG', 'WP_SpamShield_End_Blog_Spam' );
 	foreach( $unreg_widgets as $i => $widget ) { unregister_widget( $widget ); }
@@ -33,10 +39,10 @@ function rs_wpss_uninstall_plugin() {
 	/* Delete Orphaned Options */
 	$all_options = wp_load_alloptions();
 	foreach( $all_options  as $option => $value ) { 
-		if( FALSE !== strpos( $option, 'spamshield' ) ) { delete_option( $option ); }
+		if( FALSE !== strpos( $option, 'spamshield' ) ) { delete_option( $option ); } /* TO DO: When Network Activation enabled, add Multisite - delete_site_option() */
 	}
 	/* Delete User Meta */
-	$del_user_meta = array( 'wpss_user_ip', 'wpss_admin_status', 'wpss_new_user_approved', 'wpss_new_user_email_sent', 'wpss_nag_status', 'wpss_nag_notices' );
+	$del_user_meta = array( 'wpss_user_ip', 'wpss_admin_status', 'wpss_new_user_approved', 'wpss_new_user_email_sent', 'wpss_cpn_status', 'wpss_cpn_notices', 'wpss_nag_status', 'wpss_nag_notices', );
 	$user_ids = get_users( array( 'blog_id' => '', 'fields' => 'ID' ) );
 	foreach ( $user_ids as $user_id ) { foreach( $del_user_meta as $i => $key ) { delete_user_meta( $user_id, $key ); } }
 	/* Clear Banned IP Info */
@@ -44,9 +50,9 @@ function rs_wpss_uninstall_plugin() {
 }
 
 function rs_wpss_uninstall_ip_ban_htaccess() {
-	/***
-	* Clear banned IP info from .htaccess during uninstall.
-	***/
+	/**
+	 * Clear banned IP info from .htaccess during uninstall.
+	 */
 	$hta_bak_dir		= WPSS_CONTENT_DIR_PATH.'/backup';
 	$hta_wpss_bak_dir	= $hta_bak_dir.'/wp-spamshield';
 	$hta_file			= ABSPATH.'/.htaccess';
@@ -106,4 +112,6 @@ function rs_wpss_un_append_log_data( $str = NULL, $rsds_only = FALSE ) {
 
 rs_wpss_uninstall_plugin();
 
-/* "Then it's time I disappear..." */
+/**
+ * "...Then it's time I disappear..."
+ */

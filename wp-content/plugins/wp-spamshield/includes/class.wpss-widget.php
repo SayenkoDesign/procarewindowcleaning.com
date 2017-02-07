@@ -1,11 +1,11 @@
 <?php
 /***
 * WP-SpamShield Widgets
-* Ver 1.9.6.1
+* Ver 1.9.7.8
 ***/
 
 if( !defined( 'ABSPATH' ) || !defined( 'WPSS_VERSION' ) ) {
-	if( !headers_sent() ) { header('HTTP/1.1 403 Forbidden'); }
+	if( !headers_sent() ) { header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden'); }
 	die( 'ERROR: Direct access to this file is not allowed.' );
 }
 
@@ -14,10 +14,10 @@ class WP_SpamShield_Counter_CG extends WP_Widget {
 	function __construct() {
 		
 		parent::__construct(
-			'wp_spamshield_counter_css', // Base ID
-			__( 'WP-SpamShield Counter', WPSS_PLUGIN_NAME ) .' - '. __( 'Custom', WPSS_PLUGIN_NAME ), // Name
+			'wp_spamshield_counter_css', /* Base ID */
+			__( 'WP-SpamShield Counter', 'wp-spamshield' ) .' - '. str_replace( ':', '', trim( __('Custom:') ) ), /* Name */
 			array( 
-				'description' => __( 'Show how much spam is being blocked by WP-SpamShield.', WPSS_PLUGIN_NAME ) .' '. __( 'This is a very customizable widget with options for color and style, including a custom color chooser.', WPSS_PLUGIN_NAME ), /* NEEDS TRANSLATION */
+				'description' => __( 'Show how much spam is being blocked by WP-SpamShield.', 'wp-spamshield' ) .' '. __( 'This is a very customizable widget with options for color and style, including a custom color chooser.', 'wp-spamshield' ), /* NEEDS TRANSLATION */
 				)
 			);
 		if( is_active_widget( false, false, $this->id_base ) ) {
@@ -296,12 +296,12 @@ class WP_SpamShield_Counter_CG extends WP_Widget {
 
 	public function form( $instance ) {
 		$color_options = $this->get_colors();
-		$color_options['user_color'] = __('Choose your own color', WPSS_PLUGIN_NAME );
+		$color_options['user_color'] = rs_wpss_casetrans( 'ucwords', __('Custom color') );
 		$title = !empty( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : rs_wpss_blocked_txt('UCW');
 		$color = isset( $instance['color'] ) ? sanitize_text_field( $instance['color'] ) : '0';
 		$style = isset( $instance['style'] ) ? sanitize_text_field( $instance['style'] ) : '1';
 		$user_color = ( !empty( $instance['user_color'] ) && $color == 'user_color' ) ? sanitize_text_field( $instance['user_color'] ) : $color_options[$color];
-		$style_text = __( 'Style', WPSS_PLUGIN_NAME );
+		$style_text = __('Style');
 		$style_options = array( '1' => $style_text.' 1', '2' => $style_text.' 2' );
 ?>
 		<p>
@@ -309,7 +309,7 @@ class WP_SpamShield_Counter_CG extends WP_Widget {
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
 		<p>
-		<label for="<?php echo $this->get_field_id('style'); ?>"><?php _e('Select Style:', WPSS_PLUGIN_NAME); ?></label>
+		<label for="<?php echo $this->get_field_id('style'); ?>"><?php _e('Style'); ?>:</label>
 		<select class="widefat" id="<?php echo $this->get_field_id('style'); ?>" name="<?php echo $this->get_field_name( 'style' ); ?>" >
 <?php
 			foreach ( $style_options as $i => $option ) {
@@ -321,7 +321,7 @@ class WP_SpamShield_Counter_CG extends WP_Widget {
 		</select>
 		</p>
 		<p>
-		<label for="<?php echo $this->get_field_id('color'); ?>"><?php _e('Select Base Color:', WPSS_PLUGIN_NAME); ?></label>
+		<label for="<?php echo $this->get_field_id('color'); ?>"><?php _e('Select Color'); ?>:</label>
 		<select class="widefat" id="<?php echo $this->get_field_id('color'); ?>" name="<?php echo $this->get_field_name('color'); ?>" >
 <?php
 		$i = 0;
@@ -334,19 +334,19 @@ class WP_SpamShield_Counter_CG extends WP_Widget {
 ?>
 
 		</select>
-		<?php _e( 'Once you select a base color, the plugin will use this to generate a color palette for your new widget.', WPSS_PLUGIN_NAME ); ?>
+		<?php _e( 'Once you select a base color, the plugin will use this to generate a color palette for your new widget.', 'wp-spamshield' ); ?>
 
 		</p>
 		<p>
-		<?php printf( __( 'If you\'d prefer to use your own color, for example if you\'d like to match things more closely with your website colors, select the "%1$s" option from the menu above, and then choose a base color below.', WPSS_PLUGIN_NAME ), $color_options['user_color'] ); ?>
+		<?php printf( __( 'If you\'d prefer to use your own color, for example if you\'d like to match things more closely with your website colors, select the "%1$s" option from the menu above, and then choose a base color below.', 'wp-spamshield' ), $color_options['user_color'] ); ?>
 
 		</p>
 		<p>
-		<label for="<?php echo $this->get_field_id('user_color' ); ?>"><?php _e('Choose a Custom Base Color:'); ?></label><br />
+		<label for="<?php echo $this->get_field_id('user_color' ); ?>"><?php echo $color_options['user_color']; ?>:</label><br />
 		<input class="wpss-color-picker" type="text" id="<?php echo $this->get_field_id( 'user_color' ); ?>" name="<?php echo $this->get_field_name( 'user_color' ); ?>" value="<?php echo esc_attr($user_color); ?>" />
 		</p>
 		<p>
-		<?php _e( 'You pick the color, and the plugin will make sure your new widget looks great.', WPSS_PLUGIN_NAME ); ?>
+		<?php _e( 'You pick the color, and the plugin will make sure your new widget looks great.', 'wp-spamshield' ); ?>
 
 		</p>
 <?php
@@ -355,7 +355,7 @@ class WP_SpamShield_Counter_CG extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$color_options = $this->get_colors();
-		$color_options['user_color'] = __('Choose your own color', WPSS_PLUGIN_NAME );
+		$color_options['user_color'] = rs_wpss_casetrans( 'ucwords', __('Custom color') );
 		$instance['color'] = isset( $new_instance['color'] ) ? sanitize_text_field( $new_instance['color'] ) : '0';
 		$instance['style'] = isset( $new_instance['style'] ) ? sanitize_text_field( $new_instance['style'] ) : '1';
 		$instance['title'] = !empty( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : rs_wpss_blocked_txt('UCW');
@@ -372,14 +372,14 @@ class WP_SpamShield_Counter_CG extends WP_Widget {
 	public function widget( $args, $instance ) {
 		$title	= !empty( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : rs_wpss_blocked_txt('UCW');
 		$count	= rs_wpss_number_format( rs_wpss_count() );
-		//$count	= rs_wpss_number_format( 1000000 ); /* FOR TESTING & SCREEN SHOTS ONLY */
+		/* $count	= rs_wpss_number_format( 1000000 ); // FOR TESTING & SCREEN SHOTS ONLY */
 		$byline	= str_replace( WPSS_PLUGIN_NAME, '<strong>WP-SpamShield</strong>', rs_wpss_casetrans( 'lower', WPSS_Promo_Links::promo_text(1) ) );
 		echo $args['before_widget'];
 		echo $args['before_title'] . $title . $args['after_title'];
 ?>
 
 	<div class="wpssstats">
-		<a href="<?php echo WPSS_HOME_URL; ?>" target="_blank" rel="external" title=""><?php printf( __( '<strong class="wpsscount">%1$s</strong> <strong class="wpsscount2">%2$s</strong> <span class="wpsscount3">%3$s</span>', WPSS_PLUGIN_NAME ), $count, rs_wpss_blocked_txt(), $byline ); ?></a>
+		<a href="<?php echo WPSS_HOME_URL; ?>" target="_blank" rel="external" title=""><?php printf( __( '<strong class="wpsscount">%1$s</strong> <strong class="wpsscount2">%2$s</strong> <span class="wpsscount3">%3$s</span>', 'wp-spamshield' ), $count, rs_wpss_blocked_txt(), $byline ); ?></a>
 	</div>
 <?php
 		echo $args['after_widget'];
@@ -391,10 +391,10 @@ class WP_SpamShield_Counter_LG extends WP_Widget {
 
 	function __construct() {
 		parent::__construct(
-			'spamshield_widget_counter_sm', // Base ID
-			__( 'WP-SpamShield Counter', WPSS_PLUGIN_NAME ).' - '.__( 'Graphic', WPSS_PLUGIN_NAME ), // Name
+			'spamshield_widget_counter_sm', /* Base ID */
+			__( 'WP-SpamShield Counter', 'wp-spamshield' ).' - '.__( 'Graphic', 'wp-spamshield' ), /* Name */  /* NEEDS TRANSLATION */
 			array(
-				'description' => __( 'Show how much spam is being blocked by WP-SpamShield.', WPSS_PLUGIN_NAME ) .' '. __( 'This widget provides a spam counter graphic that lets you choose what color and size you prefer.', WPSS_PLUGIN_NAME ) , /* NEEDS TRANSLATION */
+				'description' => __( 'Show how much spam is being blocked by WP-SpamShield.', 'wp-spamshield' ) .' '. __( 'This widget provides a spam counter graphic that lets you choose what color and size you prefer.', 'wp-spamshield' ) , /* NEEDS TRANSLATION */
 				)
 			);
 	}
@@ -402,8 +402,8 @@ class WP_SpamShield_Counter_LG extends WP_Widget {
 	public function form( $instance ) {
 		$title		= !empty( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : rs_wpss_blocked_txt('UCW');
 		$style		= !empty( $instance['style'] ) ? sanitize_text_field( $instance['style'] ) : '6';
-		$lg_txt		= __('Large', WPSS_PLUGIN_NAME); $sm_txt = __('Small', WPSS_PLUGIN_NAME); $ctr_txt = __( 'Counters', WPSS_PLUGIN_NAME );
-		$blk_txt	= __('Black', WPSS_PLUGIN_NAME); $red_txt = __('Red', WPSS_PLUGIN_NAME); $lbl_txt = __('Light Blue', WPSS_PLUGIN_NAME); $dbl_txt = __('Dark Blue', WPSS_PLUGIN_NAME); $grn_txt = __('Green', WPSS_PLUGIN_NAME);
+		$lg_txt		= __('Large'); $sm_txt = __('Small', WPSS_PLUGIN_NAME); $ctr_txt = __( 'Counters', 'wp-spamshield' );
+		$blk_txt	= __('Black'); $red_txt = __('Red'); $lbl_txt = __('Light Blue', WPSS_PLUGIN_NAME); $dbl_txt = __('Blue'); $grn_txt = __('Green');
 		$options	= array('1'=>$lg_txt.' - '.$blk_txt, '2'=>$lg_txt.' - '.$lbl_txt, '3'=>$lg_txt.' - '.$red_txt, '4'=>$lg_txt.' - '.$dbl_txt, '5'=>$lg_txt.' - '.$grn_txt, '6'=>$sm_txt.' - '.$blk_txt, '7'=>$sm_txt.' - '.$lbl_txt, '8'=>$sm_txt.' - '.$red_txt, '9'=>$sm_txt.' - '.$dbl_txt, '10'=>$sm_txt.' - '.$grn_txt, );
 ?>
 		<p>
@@ -411,7 +411,7 @@ class WP_SpamShield_Counter_LG extends WP_Widget {
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
 		</p>
 		<p>
-		<label for="<?php echo $this->get_field_id('style'); ?>"><?php _e('Select Style:', WPSS_PLUGIN_NAME); ?></label>
+		<label for="<?php echo $this->get_field_id('style'); ?>"><?php _e('Style'); ?>:</label>
 		<select class="widefat" id="<?php echo $this->get_field_id('style'); ?>" name="<?php echo $this->get_field_name('style'); ?>" >
 <?php
 			foreach ( $options as $i => $option ) {
@@ -472,7 +472,7 @@ class WP_SpamShield_Counter_LG extends WP_Widget {
 		if( $style > 5 ) { $size = 's'; $imgn = $style-5; $ht_x_diff = 7; } else { $size = 'lg'; $imgn = $style; $ht_x_diff = 0; }
 
 		$count	= rs_wpss_number_format( rs_wpss_count() );
-		//$count	= rs_wpss_number_format( 1000000 ); /* FOR TESTING & SCREEN SHOTS ONLY */
+		/* $count	= rs_wpss_number_format( 1000000 ); // FOR TESTING & SCREEN SHOTS ONLY */
 		$byline	= WPSS_Promo_Links::promo_text(1);
 		$sip1c 	= substr(WPSS_SERVER_ADDR, 0, 1);
 		$ht_x 				= $sip1c > '5' ? 2 + $ht_x_diff : 3 + $ht_x_diff;
@@ -506,7 +506,7 @@ class WP_SpamShield_Counter_LG extends WP_Widget {
 .wpsslstatssm_<?php echo $wpss_wid_inst; ?> .wpsslcountsm2_<?php echo $wpss_wid_inst; ?> { color: #FFF !important; display: block; font-family: Arial, Helvetica, sans-serif !important; font-weight: bold !important; font-size: <?php echo $l2_fnt_sz; ?>px; line-height: 70% !important; letter-spacing: <?php echo $l2_let_spac; ?>px !important; padding: 0 0 0 0; white-space: nowrap; }
 </style>
 	<div class="wpsslstatssm_<?php echo $wpss_wid_inst; ?>">
-		<a href="<?php echo WPSS_HOME_URL; ?>" target="_blank" rel="external" title="<?php echo $hreftitle_txt; ?>"><?php printf( __( '<strong class="wpsslcountsm_%1$s">%2$s</strong> <strong class="wpsslcountsm2_%3$s">%4$s</strong>', WPSS_PLUGIN_NAME ), $wpss_wid_inst, $count, $wpss_wid_inst, $blocked_txt ); ?></a>
+		<a href="<?php echo WPSS_HOME_URL; ?>" target="_blank" rel="external" title="<?php echo $hreftitle_txt; ?>"><?php printf( __( '<strong class="wpsslcountsm_%1$s">%2$s</strong> <strong class="wpsslcountsm2_%3$s">%4$s</strong>', 'wp-spamshield' ), $wpss_wid_inst, $count, $wpss_wid_inst, $blocked_txt ); ?></a>
 	</div>
 <?php
 		}
@@ -532,7 +532,7 @@ class WP_SpamShield_Counter_LG extends WP_Widget {
 .wpsslstats_<?php echo $wpss_wid_inst; ?> .wpsslcount3_<?php echo $wpss_wid_inst; ?> { font-family: Arial, Helvetica, sans-serif !important; font-weight: bold !important; font-size: <?php echo $l3_fnt_sz; ?>px; line-height: 70% !important; letter-spacing: <?php echo $l3_let_spac; ?>px !important; padding: 0 0 0 0; white-space: nowrap; position: relative; top: -2px; }
 </style>
 	<div class="wpsslstats_<?php echo $wpss_wid_inst; ?>">
-		<a href="<?php echo WPSS_HOME_URL; ?>" target="_blank" rel="external" title="<?php echo $hreftitle_txt; ?>"><?php printf( __( '<strong class="wpsslcount_%1$s">%2$s</strong> <strong class="wpsslcount2_%3$s">%4$s</strong> <span class="wpsslcount3_%5$s">%6$s</span>', WPSS_PLUGIN_NAME ), $wpss_wid_inst, $count, $wpss_wid_inst, $blocked_txt, $wpss_wid_inst, $byline ); ?></a>
+		<a href="<?php echo WPSS_HOME_URL; ?>" target="_blank" rel="external" title="<?php echo $hreftitle_txt; ?>"><?php printf( __( '<strong class="wpsslcount_%1$s">%2$s</strong> <strong class="wpsslcount2_%3$s">%4$s</strong> <span class="wpsslcount3_%5$s">%6$s</span>', 'wp-spamshield' ), $wpss_wid_inst, $count, $wpss_wid_inst, $blocked_txt, $wpss_wid_inst, $byline ); ?></a>
 	</div>
 <?php
 		}
@@ -545,10 +545,10 @@ class WP_SpamShield_End_Blog_Spam extends WP_Widget {
 
 	function __construct() {
 		parent::__construct(
-			'wp_spamshield_end_blog_spam', // Base ID
-			__( 'End Blog Spam', WPSS_PLUGIN_NAME ), // Name
+			'wp_spamshield_end_blog_spam', /* Base ID */
+			__( 'End Blog Spam', 'wp-spamshield' ), /* Name */
 			array(
-				'description' => __( 'Let others know how they can help end blog spam.', WPSS_PLUGIN_NAME ) . ' </BLOGSPAM>', /* NEEDS TRANSLATION */
+				'description' => __( 'Let others know how they can help end blog spam.', 'wp-spamshield' ) . ' </BLOGSPAM>', /* NEEDS TRANSLATION */
 				)
 			);
 	}
@@ -556,14 +556,14 @@ class WP_SpamShield_End_Blog_Spam extends WP_Widget {
 	public function form( $instance ) {
 		$title = !empty( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : __('End Blog Spam', WPSS_PLUGIN_NAME);
 		$style = !empty( $instance['style'] ) ? sanitize_text_field( $instance['style'] ) : '1';
-		$options = array( '1'=>__('Black', WPSS_PLUGIN_NAME), '2'=>__('Light Blue', WPSS_PLUGIN_NAME), '3'=>__('Red', WPSS_PLUGIN_NAME), '4'=>__('Dark Blue', WPSS_PLUGIN_NAME), '5'=>__('Green', WPSS_PLUGIN_NAME) );
+		$options = array( '1'=>__('Black'), '2'=>__('Light Blue', WPSS_PLUGIN_NAME), '3'=>__('Red'), '4'=>__('Blue'), '5'=>__('Green') );
 ?>
 		<p>
 		<label for="<?php echo $this->get_field_id('title' ); ?>"><?php _e('Title:'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
 		</p>
 		<p>
-		<label for="<?php echo $this->get_field_id('style'); ?>"><?php _e('Choose Color:', WPSS_PLUGIN_NAME); ?></label>
+		<label for="<?php echo $this->get_field_id('style'); ?>"><?php _e('Select Color'); ?>:</label>
 		<select class="widefat" id="<?php echo $this->get_field_id('style'); ?>" name="<?php echo $this->get_field_name('style'); ?>" >
 <?php
 			foreach ( $options as $i => $option ) {
@@ -588,7 +588,7 @@ class WP_SpamShield_End_Blog_Spam extends WP_Widget {
 
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title'] = !empty( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : __( 'End Blog Spam', WPSS_PLUGIN_NAME );
+		$instance['title'] = !empty( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : __( 'End Blog Spam', 'wp-spamshield' );
 		$instance['style'] = !empty( $new_instance['style'] ) ? sanitize_text_field( $new_instance['style'] ) : '1';
 		return $instance;
 	}
@@ -636,7 +636,7 @@ class WPSS_Old_Counters {
 		$counter_option = $atts['style'];
 		$counter_option_max = 9;
 		$counter_option_min = 1;
-		$counter_spam_blocked_msg = __( 'spam blocked by WP-SpamShield', WPSS_PLUGIN_NAME );
+		$counter_spam_blocked_msg = __( 'spam blocked by WP-SpamShield', 'wp-spamshield' );
 		if( empty( $counter_option ) || $counter_option > $counter_option_max || $counter_option < $counter_option_min ) {
 			$spamshield_count = rs_wpss_number_format( rs_wpss_count() );
 			$wpss_shortcode_content = '<a href="'.WPSS_HOME_URL.'" style="text-decoration:none;" target="_blank" rel="external" title="'.WPSS_Promo_Links::promo_text(11).'" >'.$spamshield_count.' '.$counter_spam_blocked_msg.'</a>'.WPSS_EOL;

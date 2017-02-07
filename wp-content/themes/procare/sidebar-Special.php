@@ -11,7 +11,6 @@
         <li>Christmas Light Installation</li>
         <li>Skylight Cleaning</li>
         <li>Roof Cleaning</li>
-        <li>Snow Removal</li>
         <li>Holiday Lights Installation</li>
         <li>Surface Cleaning</li>
         <li>Roof Cleaning</li>

@@ -76,7 +76,7 @@
 
 <div id="header">
     <div class="title">
-        <h1>We are the Experts in Window, Roof, and Gutter Cleaning!</h1>
+        <h1>Experts in Window, Roof, and Gutter Cleaning Since 2001!</h1>
     </div>
     <div class="contact">
         <h2>206-227-5837</h2>
@@ -158,6 +158,28 @@
 <div id="splash">
    <img src="<?php bloginfo('home'); ?>/wp-content/themes/procare/images/services.jpg" title="<?php bloginfo('name'); ?> Services" />
 
+
+	<? }elseif(is_page('pressure-washing')) { ?>
+<div id="splash">
+   <img src="<?php bloginfo('home'); ?>/wp-content/uploads/2016/03/seattle-pressure-washing.jpg" title="<?php bloginfo('name'); ?> Services" />
+
+
+<? }elseif(is_page('gutter-cleaning')) { ?>
+<div id="splash">
+   <img src="<?php bloginfo('home'); ?>/wp-content/themes/procare/images/services.jpg" title="<?php bloginfo('name'); ?> Services" />
+
+<? }elseif(is_page('moss-cleaning')) { ?>
+<div id="splash">
+   <img src="<?php bloginfo('home'); ?>/wp-content/uploads/2016/03/moss-treatment-seattle.jpg" title="<?php bloginfo('name'); ?> Services" />
+
+<? }elseif(is_page('window-cleaning')) { ?>
+<div id="splash">
+   <img src="<?php bloginfo('home'); ?>/wp-content/themes/procare/images/services.jpg" title="<?php bloginfo('name'); ?> Services" />
+
+
+<? }elseif(is_page('christmas-lights')) { ?>
+<div id="splash">
+   <img src="<?php bloginfo('home'); ?>/wp-content/uploads/2016/03/seattle-christmas-lights-installation.jpg" title="<?php bloginfo('name'); ?> Services" />
 	<? }elseif(is_page('kirkland-location')) { ?>
 <div id="splash">
 </div>
